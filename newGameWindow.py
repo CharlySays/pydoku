@@ -22,6 +22,8 @@ class NewGameWindow(Gtk.Window):
         hard = Gtk.Button('Hard', expand=True)
 
         easy.connect('clicked', self.new_game_clicked, mainwindow, 30)
+        medium.connect('clicked', self.new_game_clicked, mainwindow, 40)
+        hard.connect('clicked', self.new_game_clicked, mainwindow, 50)
 
         layout.attach(easy, 0, 0, 1, 1)
         layout.attach(medium, 0, 1, 1, 1)
