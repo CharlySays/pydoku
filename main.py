@@ -4,6 +4,7 @@ from gi.repository import Gtk, Gdk
 
 from mainWindow import *
 from field import *
+from newGameWindow import *
 
 style_provider = Gtk.CssProvider()
 
@@ -13,8 +14,8 @@ Gtk.StyleContext.add_provider_for_screen(
     Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
 )
 
-window = MainWindow()
-window.set_name('MainWindow')
-window.connect("delete-event", Gtk.main_quit)
-window.show_all()
+mainwindow = MainWindow()
+mainwindow.set_name('MainWindow')
+mainwindow.connect("delete-event", Gtk.main_quit)
+
 Gtk.main()

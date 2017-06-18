@@ -1,19 +1,20 @@
 import random, math
-from field import *
-
 
 def generateGrid(grid, number):
-
-    for i in range(0, 9):
-        row = []
-        for j in range(0, 9):
-            row.append(Field('', ''))
-        grid.append(row)
-
     random.seed()
+
+    for row in grid:
+        for field in row:
+            field.set_name('')
+            field.set_label('')
 
     solvePuzzle(grid, 0, 0)
     removeNNumbers(grid, number)
+
+    for row in grid:
+        for field in row:
+            if field.get_label() != '':
+                field.set_name('fixed')
 
 def removeNNumbers(grid, numbers):
     while (numbers > 0):
