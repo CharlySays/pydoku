@@ -18,4 +18,3 @@ window.set_name('MainWindow')
 window.connect("delete-event", Gtk.main_quit)
 window.show_all()
 Gtk.main()
-

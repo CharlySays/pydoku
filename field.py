@@ -5,23 +5,10 @@ from gi.repository import Gtk,Gdk
 
 class Field(Gtk.Button):
 
-    def __init__(self, value, fixed):
+    def __init__(self, value, name):
         Gtk.ToggleButton.__init__(self, label=value, expand=True)
-        if fixed:
-            self.set_name('fixed')
+        self.set_name(name)
 
 
     def button_clicked(self, button, grid):
-        x = 0
-        s=''
-        for f in grid:
-            if x%9 == 0:
-                s += '\n'
-
-            if f.get_label() == '':
-                s += '_'
-            else:
-                s += f.get_label()
-            x += 1
-
-        print(s)
+       pass

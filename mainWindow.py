@@ -1,9 +1,12 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
-import math
+import math, random
 
 from field import *
+from generator import *
+from controll import *
+
 
 class MainWindow(Gtk.Window):
     def __init__(self):
@@ -13,9 +16,8 @@ class MainWindow(Gtk.Window):
         layout = Gtk.Grid()
         self.add(layout)
 
-        #Setup Menu
+        # Setup Menu
         mb = Gtk.MenuBar()
-
 
         drop_file_menu = Gtk.MenuItem("File")
         file_menu = Gtk.Menu()
@@ -35,6 +37,17 @@ class MainWindow(Gtk.Window):
 
         game_menu_reset = Gtk.MenuItem("Reset")
         game_menu_new = Gtk.MenuItem("New Game")
+        new_game_menu  = Gtk.Menu()
+
+        game_menu_new.set_submenu(new_game_menu)
+
+        new_game_menu_easy = Gtk.MenuItem("Easy")
+        new_game_menu_medium = Gtk.MenuItem("Medium")
+        new_game_menu_hard = Gtk.MenuItem("Hard")
+
+        new_game_menu.append(new_game_menu_easy)
+        new_game_menu.append(new_game_menu_medium)
+        new_game_menu.append(new_game_menu_hard)
 
         drop_game_menu.set_submenu(game_menu)
         game_menu.append(game_menu_new)
@@ -43,7 +56,7 @@ class MainWindow(Gtk.Window):
         mb.append(drop_file_menu)
         mb.append(drop_game_menu)
 
-        layout.attach(mb,0,0,1,1)
+        layout.attach(mb, 0, 0, 1, 1)
 
         # Setup a Sudoku-Style table
         table = Gtk.Table(9, 9, True)
@@ -55,14 +68,20 @@ class MainWindow(Gtk.Window):
 
         # Setup an empty Grid and attach it to my table
         self.grid = []
-        for i in range(81):
-            self.grid.append(Field('', False))
-            table.attach(self.grid[i], math.floor(i / 9), math.floor(i / 9) + 1, (i % 9), (i % 9) + 1)
+        generateGrid(self.grid, 40)
 
-        layout.attach(table,0,1,1,1)
+        for i in range(9):
+            for j in range(9):
+                #                row.append(Field('', random.randint(1,2)==2))
+                table.attach(self.grid[i][j], j, j + 1, (i % 9), (i % 9) + 1)
+                if self.grid[i][j].get_label() != '':
+                    self.grid[i][j].set_name('fixed')
 
-        for f in self.grid:
-            f.connect("clicked", f.button_clicked, self.grid)
+        layout.attach(table, 0, 1, 1, 1)
+
+        for r in self.grid:
+            for f in r:
+                f.connect("clicked", f.button_clicked, self.grid)
 
         self.connect('key_press_event', self.on_key_press, self.grid)
 
@@ -71,7 +90,7 @@ class MainWindow(Gtk.Window):
             Gtk.main_quit()
 
         f = widget.get_focus()
-        if f in grid:
+        if any(f in sub for sub in grid) and not f.get_name() == 'fixed':
             if event.keyval == 65457 or event.keyval == 49:
                 f.set_label('1')
             elif event.keyval == 65458 or event.keyval == 50:

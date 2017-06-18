@@ -6,7 +6,8 @@
 	background: #FFFFFF;
 	border-color: #000;
 	margin: 10px;
-	font-size: 13px;
+	font-size: 16px;
+	font-weight: bold;
 	color: #000;
 }
 
@@ -15,10 +16,15 @@
 }
 
 #MainWindow GtkButton#fixed:focused{
-	background: #00ffff;
+	background: #ff0000;
 }
 
 #MainWindow GtkButton:hover{ 
 	transition: 200ms linear;
-	background: #00FF00;
+	background: #00ff00;
+}
+
+#MainWindow GtkButton#fixed:hover{
+	transition: 200ms linear;
+	background: #ff0000;
 }
