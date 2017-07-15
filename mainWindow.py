@@ -32,15 +32,18 @@ class MainWindow(Gtk.Window):
 
         # Setup an empty Grid
         self.initgrid()
+        self.timerlabel = Gtk.Label()
+        self.timerlabel.set_label('hallo')
 
         # Setup menu
         layout.attach(self.initmenu(), 0, 0, 1, 1)
+        layout.attach(self.timerlabel, 0, 1, 1, 1)
 
         for i in range(9):
             for j in range(9):
                 table.attach(self.grid[i][j], j, j + 1, (i % 9), (i % 9) + 1)
 
-        layout.attach(table, 0, 1, 1, 1)
+        layout.attach(table, 0, 2, 1, 1)
 
         for r in self.grid:
             for f in r:
