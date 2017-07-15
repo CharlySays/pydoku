@@ -32,5 +32,7 @@ class NewGameWindow(Gtk.Window):
     def new_game_clicked(self, event, mainwindow, difficulty):
         generateGrid(mainwindow.grid, difficulty)
         mainwindow.show_all()
+        mainwindow.s = 0
         self.hide()
+
 

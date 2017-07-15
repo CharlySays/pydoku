@@ -25,19 +25,19 @@
 }
 
 #MainWindow GtkButton:focused{
-	background: #00ff00;
+	background: #70e070;
 }
 
 #MainWindow GtkButton#fixed:focused{
-	background: #ff0000;
+	background: #ff3030;
 }
 
 #MainWindow GtkButton:hover{ 
 	transition: 200ms linear;
-	background: #00ff00;
+	background: #70e070;
 }
 
 #MainWindow GtkButton#fixed:hover{
 	transition: 200ms linear;
-	background: #ff0000;
+	background: #ff3030;
 }

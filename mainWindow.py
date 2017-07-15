@@ -1,13 +1,15 @@
 import gi
-
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk, GObject
+
 import math, random
+
 
 from field import *
 from generator import *
 from controll import *
 from newGameWindow import *
+
 
 class MainWindow(Gtk.Window):
     def __init__(self):
@@ -17,6 +19,11 @@ class MainWindow(Gtk.Window):
         layout = Gtk.Grid()
         self.add(layout)
         self.grid = []
+
+        # timer
+        self.s = 0
+
+        GObject.timeout_add(1000, self.update_timer)
 
         self.newgamewindow = NewGameWindow(self)
         self.newgamewindow.set_name('NewGame')
@@ -33,7 +40,6 @@ class MainWindow(Gtk.Window):
         # Setup an empty Grid
         self.initgrid()
         self.timerlabel = Gtk.Label()
-        self.timerlabel.set_label('hallo')
 
         # Setup menu
         layout.attach(self.initmenu(), 0, 0, 1, 1)
@@ -51,7 +57,6 @@ class MainWindow(Gtk.Window):
                 f.connect('clicked', f.button_clicked, self.grid)
 
         self.connect('key_press_event', on_key_press, self.grid)
-
 
         self.newgamewindow.show_all()
 
@@ -84,10 +89,10 @@ class MainWindow(Gtk.Window):
         new_game_menu_medium = Gtk.MenuItem("Medium")
         new_game_menu_hard = Gtk.MenuItem("Hard")
 
-        new_game_menu_easy.connect('activate', new_game_clicked, self.grid, 30)
-        new_game_menu_medium.connect('activate', new_game_clicked, self.grid, 40)
-        new_game_menu_hard.connect('activate', new_game_clicked, self.grid, 50)
-        game_menu_reset.connect('activate', reset_game, self.grid)
+        new_game_menu_easy.connect('activate', new_game_clicked, self, 30)
+        new_game_menu_medium.connect('activate', new_game_clicked, self, 40)
+        new_game_menu_hard.connect('activate', new_game_clicked, self, 50)
+        game_menu_reset.connect('activate', reset_game, self)
 
         new_game_menu.append(new_game_menu_easy)
         new_game_menu.append(new_game_menu_medium)
@@ -121,4 +126,13 @@ class MainWindow(Gtk.Window):
                 if field.get_label() == '':
                     return False
 
+        return True
+
+    def update_timer(self):
+        self.s += 1
+
+        output = str(math.floor(self.s/60)).zfill(2)+':'
+        output += str(self.s%60).zfill(2)
+
+        self.timerlabel.set_label(output)
         return True
