@@ -16,7 +16,6 @@ class NewGameWindow(Gtk.Window):
         self.set_border_width(5)
         layout = Gtk.Grid()
         self.add(layout)
-        hhhh
 
         easy = Gtk.Button('Easy', expand=True)
         medium = Gtk.Button('Medium', expand=True)
