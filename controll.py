@@ -41,16 +41,17 @@ def on_key_press(widget, event, grid):
         set_hints(f, grid)
 
 
-def new_game_clicked(event, grid, difficulty):
-    generateGrid(grid, difficulty)
+def new_game_clicked(event, mainwindow, difficulty):
+    generateGrid(mainwindow.grid, difficulty)
+    mainwindow.s = 0
 
-
-def reset_game(event, grid):
-    for row in grid:
+def reset_game(event, mainwindow):
+    for row in mainwindow.grid:
         for field in row:
             if field.get_name() not in ['fixed', 'marked_fixed']:
                 field.set_label('')
 
+    mainwindow.s = 0
 
 def set_hints(widget, grid):
     was_fixed = False
