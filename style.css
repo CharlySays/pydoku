@@ -3,10 +3,6 @@
     font-weight: bold;
 }
 
-#MainWindow {
-
-}
-
 #MainWindow GtkButton{
 	background: #FFFFFF;
 	border-color: #000;
@@ -24,11 +20,11 @@
 	background: #00FFFF;
 }
 
-#MainWindow GtkButton:focused{
+#MainWindow GtkButton:focus{
 	background: #70e070;
 }
 
-#MainWindow GtkButton#fixed:focused{
+#MainWindow GtkButton#fixed:focus{
 	background: #ff3030;
 }
 
